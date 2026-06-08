@@ -59,6 +59,12 @@ export async function createLookup(store: "stations" | "officers", name: string)
   return record;
 }
 
+export async function renameLookup(store: "stations" | "officers", id: string, name: string) {
+  const existing = await get<LookupRecord>(store, id);
+  if (!existing) throw new Error("Record not found.");
+  await put(store, { ...existing, name, updated_at: nowIso() });
+}
+
 export async function listActivities() {
   const lookups = await loadLookups();
   const activities = (await all<ActivityEntry>("activity_entries")).filter((row) => !row.deleted_at);

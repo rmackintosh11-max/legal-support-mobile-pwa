@@ -49,12 +49,12 @@ On the phone:
 
 On the coordinator desktop:
 
-```sh
-cd mobile-pwa
-npm run bundle-to-sqlite -- legal-support-mobile-bundle-YYYY-MM-DD.json legal-support-mobile-import.sqlite
-```
-
-Then open the existing desktop app and import `legal-support-mobile-import.sqlite` through the existing Import App Data workflow.
+1. Open the desktop app.
+2. Go to Exports / Backups / Imports.
+3. Click Preview import from mobile JSON.
+4. Select the phone-exported JSON file.
+5. Review the preview.
+6. Click Confirm import.
 
 ## Recommended hosting
 

@@ -23,13 +23,12 @@ It will work there after this folder is pushed to a public GitHub repository nam
 
 On the phone, open Sync and export the mobile JSON bundle.
 
-On the coordinator's desktop, convert that bundle to SQLite:
+On the coordinator's desktop, open the desktop app and use:
 
-```sh
-cd mobile-pwa
-npm run bundle-to-sqlite -- legal-support-mobile-bundle-2026-06-08.json legal-support-mobile-import.sqlite
+```text
+Exports / Backups / Imports > Preview import from mobile JSON
 ```
 
-Then open the existing desktop app and use its Import App Data workflow to import `legal-support-mobile-import.sqlite`.
+The older command-line converter remains available for technical recovery work, but normal users should import the JSON file directly inside the desktop app.
 
 The CSV export is only a review copy. Use the JSON bundle for syncing.

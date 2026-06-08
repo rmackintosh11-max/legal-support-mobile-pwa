@@ -17,7 +17,7 @@ import {
   yesNoNa,
   yesNoUnknown
 } from "./constants";
-import { createLookup, exportBundle, importBundle, initStore, listActivities, loadLookups, saveActivity, setSetting, softDeleteActivity, todayIso } from "./storage";
+import { createLookup, exportBundle, importBundle, initStore, listActivities, loadLookups, renameLookup, saveActivity, setSetting, softDeleteActivity, todayIso } from "./storage";
 import type { ActivityEntry, AppSettings, CodebookItem, DvaDetails, LookupRecord, MobileBundle } from "./types";
 
 type Screen = "today" | "new" | "log" | "sync" | "setup";
@@ -191,7 +191,7 @@ function SyncScreen({ onImported }: { onImported: () => void }) {
     const bundle = await exportBundle();
     const stamp = new Date().toISOString().slice(0, 10);
     download(`legal-support-mobile-bundle-${stamp}.json`, JSON.stringify(bundle, null, 2), "application/json");
-    setSummary(`Exported ${bundle.tables.activity_entries.length} entries. Convert this JSON to SQLite before importing into the desktop app.`);
+    setSummary(`Exported ${bundle.tables.activity_entries.length} entries. Send this JSON file to the coordinator for direct import in the desktop app.`);
   }
 
   async function downloadCsv() {
@@ -223,8 +223,7 @@ function SyncScreen({ onImported }: { onImported: () => void }) {
       {summary && <p className="helper">{summary}</p>}
       <div className="panel">
         <h2>Desktop handoff</h2>
-        <p>Send the JSON bundle to the coordinator. On a desktop, run the converter in this PWA folder to produce a SQLite file, then use the existing desktop app's Import App Data screen.</p>
-        <code>npm run bundle-to-sqlite -- bundle.json output.sqlite</code>
+        <p>Send the JSON bundle to the coordinator. In the desktop app, use Exports / Backups / Imports, then Preview import from mobile JSON.</p>
       </div>
     </section>
   );
@@ -233,6 +232,9 @@ function SyncScreen({ onImported }: { onImported: () => void }) {
 function Setup({ lookups, onSaved }: { lookups: LookupState; onSaved: () => void }) {
   const [stationName, setStationName] = useState("");
   const [officerName, setOfficerName] = useState("");
+  const [renameOfficerId, setRenameOfficerId] = useState(lookups.officers[0]?.id || "");
+  const [renameOfficerName, setRenameOfficerName] = useState("");
+  const selectedOfficer = lookups.officers.find((officer) => officer.id === renameOfficerId);
 
   async function saveDefault(key: "current_station_id" | "current_officer_id", value: string) {
     await setSetting(key, value);
@@ -243,6 +245,13 @@ function Setup({ lookups, onSaved }: { lookups: LookupState; onSaved: () => void
     if (!name.trim()) return;
     await createLookup(kind, name.trim());
     clear();
+    onSaved();
+  }
+
+  async function saveOfficerName() {
+    if (!renameOfficerId || !renameOfficerName.trim()) return;
+    await renameLookup("officers", renameOfficerId, renameOfficerName.trim());
+    setRenameOfficerName("");
     onSaved();
   }
 
@@ -258,6 +267,13 @@ function Setup({ lookups, onSaved }: { lookups: LookupState; onSaved: () => void
       </div>
       <div className="panel">
         <Field label="Default officer"><Select value={lookups.settings.current_officer_id || ""} options={lookups.officers.map((row) => [row.id, row.name])} onChange={(value) => saveDefault("current_officer_id", value)} /></Field>
+        <div className="rename-box">
+          <Field label="Rename officer"><Select value={renameOfficerId || ""} options={lookups.officers.map((row) => [row.id, row.name])} onChange={(value) => { setRenameOfficerId(value); setRenameOfficerName(""); }} /></Field>
+          <div className="inline-add">
+            <input placeholder={selectedOfficer ? `Rename ${selectedOfficer.name}` : "New officer name"} value={renameOfficerName} onChange={(e) => setRenameOfficerName(e.target.value)} />
+            <button onClick={saveOfficerName}>Rename</button>
+          </div>
+        </div>
         <div className="inline-add">
           <input placeholder="Add officer" value={officerName} onChange={(e) => setOfficerName(e.target.value)} />
           <button onClick={() => addLookup("officers", officerName, () => setOfficerName(""))}>Add</button>

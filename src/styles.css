@@ -1,0 +1,335 @@
+:root {
+  color: #162129;
+  background: #f6f8f9;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+.file-button {
+  border: 1px solid #c7d3d9;
+  background: #fff;
+  color: #162129;
+  min-height: 44px;
+  border-radius: 7px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button.primary,
+.primary {
+  background: #19536f;
+  border-color: #19536f;
+  color: #fff;
+}
+
+.app {
+  min-height: 100vh;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #19536f;
+  color: #fff;
+  padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.topbar div {
+  display: grid;
+  gap: 2px;
+}
+
+.topbar strong {
+  font-size: 18px;
+}
+
+.topbar span {
+  color: #d4e7ee;
+  font-size: 13px;
+}
+
+.status {
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #fff !important;
+}
+
+.status.online {
+  background: rgba(255, 255, 255, .14);
+}
+
+main {
+  padding: 16px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 14px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 25px;
+  letter-spacing: 0;
+}
+
+.header p {
+  margin: 5px 0 0;
+  color: #5d6b75;
+}
+
+.notice,
+.privacy,
+.helper {
+  width: 100%;
+  text-align: left;
+  border-color: #b6d2be;
+  background: #edf8f1;
+  color: #225b38;
+  margin-bottom: 12px;
+  padding: 11px 12px;
+}
+
+.privacy {
+  border: 1px solid #ead4a0;
+  background: #fff8e8;
+  color: #7c4300;
+  border-radius: 7px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.metric,
+.panel,
+.entry-card,
+.subform {
+  background: #fff;
+  border: 1px solid #d8e2e7;
+  border-radius: 8px;
+}
+
+.metric {
+  padding: 12px;
+  display: grid;
+  gap: 5px;
+}
+
+.metric span,
+.entry-card span,
+.empty,
+.helper {
+  color: #5d6b75;
+}
+
+.metric strong {
+  font-size: 25px;
+}
+
+.wide {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.form,
+.subform,
+.sync-actions {
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field span {
+  color: #33434f;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #c9d5dc;
+  border-radius: 7px;
+  background: #fff;
+  padding: 9px 10px;
+  color: #162129;
+}
+
+textarea {
+  min-height: 104px;
+  resize: vertical;
+}
+
+.subform,
+.panel {
+  padding: 13px;
+}
+
+.subform h2,
+.panel h2 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.cards {
+  display: grid;
+  gap: 10px;
+}
+
+.entry-card {
+  position: relative;
+  padding: 13px;
+  display: grid;
+  gap: 9px;
+}
+
+.entry-card div:first-child {
+  display: grid;
+  gap: 3px;
+  padding-right: 42px;
+}
+
+.entry-card p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card-meta span {
+  border: 1px solid #d9e2e7;
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: #f8fafb;
+  font-size: 12px;
+}
+
+.icon-danger {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  min-height: 34px;
+  width: 34px;
+  padding: 0;
+  color: #8c1d18;
+}
+
+.empty {
+  border: 1px dashed #cbd8de;
+  border-radius: 8px;
+  padding: 18px;
+  text-align: center;
+}
+
+.file-button {
+  width: 100%;
+  cursor: pointer;
+}
+
+.file-button input {
+  display: none;
+}
+
+.inline-add {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+code {
+  display: block;
+  white-space: normal;
+  background: #eef3f5;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.tabs {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, .97);
+  border-top: 1px solid #d8e2e7;
+}
+
+.tabs button {
+  min-height: 56px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #4f5f6a;
+  display: grid;
+  gap: 2px;
+  padding: 5px 2px;
+}
+
+.tabs button.active {
+  background: #e5f1f5;
+  color: #19536f;
+}
+
+.tabs span {
+  font-size: 11px;
+}
+
+@media (min-width: 720px) {
+  .form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .field:has(textarea),
+  .subform,
+  .wide,
+  .privacy {
+    grid-column: 1 / -1;
+  }
+}
